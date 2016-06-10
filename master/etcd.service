@@ -1,7 +1,7 @@
 [Unit]
 Description=etcd key-value store
 Documentation=https://github.com/coreos/etcd
-After=docker.service
+After=network.target docker.service
 
 [Service]
 ExecStartPre=/bin/sh -c 'docker stop etcd 2>/dev/null'
