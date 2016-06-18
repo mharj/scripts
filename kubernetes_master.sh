@@ -6,6 +6,15 @@ if [ -d /lib/systemd ]; then
   systemctl daemon-reload && \
   echo "alias etcdctl='docker exec etcd /etcdctl'" > /etc/profile.d/etcd.sh && \
   source /etc/profile.d/etcd.sh && \
-  if [ ! -f /etc/default/etcd ]; then echo -e "#ETCD_LISTEN_PEER_URLS default: \"http://localhost:2380,http://localhost:7001\"\nETCD_LISTEN_PEER_URLS=\n#ETCD_LISTEN_CLIENT_URLS default: \"http://localhost:2379,http://localhost:4001\"\nETCD_LISTEN_CLIENT_URLS=\n" > /etc/default/etcd;fi
+  if [ ! -f /etc/default/etcd ]; then 
+    cat << EOF > /etc/default/etcd
+#ETCD_LISTEN_PEER_URLS default: \"http://localhost:2380,http://localhost:7001\"
+ETCD_LISTEN_PEER_URLS=
+#ETCD_LISTEN_CLIENT_URLS default: \"http://localhost:2379,http://localhost:4001\"
+ETCD_LISTEN_CLIENT_URLS=
+#ETCD_ADVERTISE_CLIENT_URLS default: "http://localhost:2379,http://localhost:4001"
+ETCD_ADVERTISE_CLIENT_URLS=
+EOF
+  fi
   echo "done";
 fi
