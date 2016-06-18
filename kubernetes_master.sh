@@ -19,7 +19,7 @@ EOF
   echo "done";
   echo "Build flannel" && \
   if [ -d /opt/flannel ]; then rm -rf /opt/flannel;fi && \
-  mkdir /opt/flannel && \
+  cd /opt && \
   git clone https://github.com/coreos/flannel.git && \
   docker run -v /opt/flannel:/opt/flannel -i google/golang /bin/bash -c "cd /opt/flannel && ./build"
   echo "done"
