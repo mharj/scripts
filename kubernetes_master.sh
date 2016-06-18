@@ -17,4 +17,9 @@ ETCD_ADVERTISE_CLIENT_URLS=
 EOF
   fi
   echo "done";
+  echo "Build flannel" && \
+  mkdir /opt/flannel && \
+  git clone https://github.com/coreos/flannel.git && \
+  docker run -v /opt/flannel:/opt/flannel -i -t google/golang /bin/bash -c "cd /opt/flannel && ./build"
+  echo "done"
 fi
