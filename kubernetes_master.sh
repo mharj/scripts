@@ -20,6 +20,6 @@ EOF
   echo "Build flannel" && \
   mkdir /opt/flannel && \
   git clone https://github.com/coreos/flannel.git && \
-  docker run -v /opt/flannel:/opt/flannel -i -t google/golang /bin/bash -c "cd /opt/flannel && ./build"
+  docker run -v /opt/flannel:/opt/flannel -i google/golang /bin/bash -c "cd /opt/flannel && ./build"
   echo "done"
 fi
