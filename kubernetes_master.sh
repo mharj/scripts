@@ -21,6 +21,7 @@ EOF
   if [ -d /opt/flannel ]; then rm -rf /opt/flannel;fi && \
   cd /opt && \
   git clone https://github.com/coreos/flannel.git && \
+  cd /opt/flannel && \
   docker run -v /opt/flannel:/opt/flannel -i google/golang /bin/bash -c "cd /opt/flannel && ./build"
   echo "done"
 fi
