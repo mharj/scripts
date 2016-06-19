@@ -9,7 +9,6 @@ case "$1" in
     rm -f /usr/bin/etcd /usr/bin/etcdctl
     ;;
   install)
-  *)
     echo "Build etcd ${ETCD_VERSION}" && \
     if [ -d /opt/etcd ]; then rm -rf /opt/etcd;fi && \
     cd /opt && \
@@ -27,4 +26,5 @@ case "$1" in
     cd /opt && \
     rm -rf /opt/etcd && \
     echo "done"
+    ;;
 esac
