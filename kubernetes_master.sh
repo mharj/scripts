@@ -69,4 +69,9 @@ EOF
   chmod 644 /lib/systemd/system/flanneld.service && \
   systemctl daemon-reload && \
   echo "done"
+  echo "docker systemd setup (wait flanneld.service and options from flanneld startup)" && \
+  mkdir -p /etc/systemd/system/docker.service.d && \
+  wget -q https://raw.githubusercontent.com/mharj/scripts/master/flannel.conf -O /etc/systemd/system/docker.service.d/flannel.conf && \
+  systemctl daemon-reload && \
+  echo "done"
 fi
