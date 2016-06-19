@@ -5,6 +5,7 @@ After=network.target
 
 [Service]
 Type=notify
+User=etcd
 EnvironmentFile=/etc/default/etcd
 Environment=ETCD_DATA_DIR=/var/lib/etcd
 Environment=ETCD_NAME=%m
