@@ -16,6 +16,8 @@ if [ -d /lib/systemd ]; then
     install -o root -g root -m 0755 /opt/etcd/bin/etcd /usr/bin/etcd && \
     install -o root -g root -m 0755 /opt/etcd/bin/etcdctl /usr/bin/etcdctl && \
     docker rmi coreos/etcd && \
+    cd /opt && \
+    rm -rf /opt/etcd && \
     echo "done"
   fi
   if [ ! -x /usr/bin/etcdctl ] || [ ! -x /usr/bin/etcd ]; then 
