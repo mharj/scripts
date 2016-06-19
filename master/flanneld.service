@@ -1,0 +1,10 @@
+[Unit]
+Description=Network fabric for containers
+Documentation=https://github.com/coreos/flannel
+After=network.target docker.service etcd.service
+
+[Service]
+Type=notify
+Restart=always
+RestartSec=5
+ExecStart=/usr/bin/flanneld
