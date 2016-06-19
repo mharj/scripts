@@ -2,7 +2,7 @@
 export ETCD_VERSION=v2.3.7
 if [ -d /lib/systemd ]; then 
   if [ ! -x /usr/bin/etcdctl ] || [ ! -x /usr/bin/etcd ]; then
-    curl https://raw.githubusercontent.com/mharj/scripts/master/common/etcd.sh | bash
+    curl -s https://raw.githubusercontent.com/mharj/scripts/master/common/etcd.sh | bash ${ETCD_VERSION}
 #    echo "Build etcd ${ETCD_VERSION}" && \
 #    if [ -d /opt/etcd ]; then rm -rf /opt/etcd;fi && \
 #    cd /opt && \
