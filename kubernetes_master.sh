@@ -33,14 +33,9 @@ EOF
     docker rmi coreos/flannel golang:1.6-onbuild && \
     echo "done"
   fi
-  
   echo "flanneld systemd service" && \
-  alias etcdctl='docker exec etcd /etcdctl' && \
-  alias && \
   wget -q https://raw.githubusercontent.com/mharj/scripts/master/master/flanneld.service -O /lib/systemd/system/flanneld.service && \
   chmod 644 /lib/systemd/system/flanneld.service && \
   systemctl daemon-reload && \
-  etcdctl get /coreos.com/network/config >/dev/null && \
-  if [ "$?" == "0" ]; then echo "network defined, starting flanned";service flanneld restart;fi && \
   echo "done"
 fi
