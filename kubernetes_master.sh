@@ -62,7 +62,7 @@ EOF
   fi
   echo "flanneld systemd service" && \
   if [ ! -x /usr/local/bin/mk-docker-opts.sh ]; then
-    wget -q https://raw.githubusercontent.com/coreos/flannel/master/dist/mk-docker-opts.sh -O /usr/local/bin/mk-docker-opts.sh && \
+    wget -q https://raw.githubusercontent.com/coreos/flannel/master/dist/mk-docker-opts.sh -O /usr/local/bin/mk-docker-opts.sh;
     chmod 755 /usr/local/bin/mk-docker-opts.sh
   fi && \  
   wget -q https://raw.githubusercontent.com/mharj/scripts/master/master/flanneld.service -O /lib/systemd/system/flanneld.service && \
