@@ -65,4 +65,10 @@ EOF
   chmod 644 /lib/systemd/system/flanneld.service && \
   systemctl daemon-reload && \
   echo "done"
+  echo "docker env support" && \
+  if [ ! -x /usr/local/bin/mk-docker-opts.sh ]; then
+    wget -q https://raw.githubusercontent.com/coreos/flannel/master/dist/mk-docker-opts.sh -O /usr/local/bin/mk-docker-opts.sh && \
+    chmod 755 /usr/local/bin/mk-docker-opts.sh
+  fi && \
+  echo "done"
 fi
