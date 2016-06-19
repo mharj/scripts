@@ -19,7 +19,7 @@ if [ -d /lib/systemd ]; then
     echo "etcd build failed";
     exit;
   fi
-  echo "Setup etcd service" && \
+  echo "etcd systemd service" && \
   wget -q https://raw.githubusercontent.com/mharj/scripts/master/master/etcd.service -O /lib/systemd/system/etcd.service && \
   chmod 644 /lib/systemd/system/etcd.service && \
   systemctl daemon-reload && \
