@@ -22,6 +22,7 @@ EOF
   cd /opt && \
   git clone https://github.com/coreos/flannel.git && \
   cd /opt/flannel && \
-  docker run -v /opt/flannel:/opt/flannel -i google/golang /bin/bash -c "cd /opt/flannel && ./build"
+  echo "FROM golang:1.6-onbuild" > Dockerfile && \
+  docker build -t mharj/flannel . && \
   echo "done"
 fi
