@@ -8,3 +8,6 @@ Type=notify
 Restart=always
 RestartSec=5
 ExecStart=/usr/bin/flanneld
+
+[Install]
+WantedBy=multi-user.target
