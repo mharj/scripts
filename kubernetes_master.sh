@@ -32,6 +32,10 @@ EOF
     install -o root -g root -m 0755 /opt/etcd/bin/etcdctl /usr/bin/etcdctl && \
     echo "done"
   fi
+  if [ ! -x /usr/bin/etcdctl ] || [ ! -x /usr/bin/etcd ]; then 
+    echo "etcd build failed";
+    exit;
+  fi
   if [ ! -x /usr/bin/flanneld ]; then 
     echo "Build flannel" && \
     if [ -d /opt/flannel ]; then rm -rf /opt/flannel;fi && \
