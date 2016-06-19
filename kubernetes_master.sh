@@ -23,6 +23,9 @@ EOF
   git clone https://github.com/coreos/flannel.git && \
   cd /opt/flannel && \
   echo "FROM golang:1.6-onbuild" > Dockerfile && \
-  docker build -t mharj/flannel . && \
+  mkdir /opt/flannel/bin && \
+  if [[ "$(docker images -q coreos/flannel 2>/dev/null)" != "" ]]; then docker rmi coreos/flannel;fi && \
+  docker build -t coreos/flannel . && \
+  docker run -it -v /opt/flannel/bin:/go/src/app/bin --rm mharj/flannel /bin/bash -c "cd /go/src/app && ./build" && \
   echo "done"
 fi
