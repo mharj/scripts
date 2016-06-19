@@ -26,7 +26,7 @@ if [ -d /lib/systemd ]; then
   id etcd >/dev/null 2>&1 && \
   if [ "$?" != "0" ]; then useradd -r -d /var/lib/etcd -g etcd etcd;fi && \
   mkdir -p /var/lib/etcd && \
-  chown etcd:etcd /var/lib/etcd && \
+  chown -Rh etcd:etcd /var/lib/etcd && \
   wget -q https://raw.githubusercontent.com/mharj/scripts/master/master/etcd.service -O /lib/systemd/system/etcd.service && \
   chmod 644 /lib/systemd/system/etcd.service && \
   systemctl daemon-reload && \
