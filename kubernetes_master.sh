@@ -36,5 +36,6 @@ EOF
   echo "flanneld systemd service" && \
   wget -q https://raw.githubusercontent.com/mharj/scripts/master/master/flanneld.service -O /lib/systemd/system/flanneld.service && \
   chmod 644 /lib/systemd/system/flanneld.service && \
-  systemctl daemon-reload
+  systemctl daemon-reload && \
+  echo "done"
 fi
