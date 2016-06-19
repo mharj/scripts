@@ -60,11 +60,11 @@ EOF
     docker rmi coreos/flannel golang:1.6-onbuild && \
     echo "done"
   fi
-  echo "flanneld systemd service" && \
+  echo "flanneld systemd service"
   if [ ! -x /usr/local/bin/mk-docker-opts.sh ]; then
     wget -q https://raw.githubusercontent.com/coreos/flannel/master/dist/mk-docker-opts.sh -O /usr/local/bin/mk-docker-opts.sh;
     chmod 755 /usr/local/bin/mk-docker-opts.sh
-  fi && \  
+  fi
   wget -q https://raw.githubusercontent.com/mharj/scripts/master/master/flanneld.service -O /lib/systemd/system/flanneld.service && \
   chmod 644 /lib/systemd/system/flanneld.service && \
   systemctl daemon-reload && \
