@@ -35,7 +35,7 @@ EOF
   fi
   
   echo "flanneld systemd service" && \
-  source /etc/profile.d/etcd.sh && \
+  alias etcdctl='docker exec etcd /etcdctl' && \
   wget -q https://raw.githubusercontent.com/mharj/scripts/master/master/flanneld.service -O /lib/systemd/system/flanneld.service && \
   chmod 644 /lib/systemd/system/flanneld.service && \
   systemctl daemon-reload && \
