@@ -1,11 +1,13 @@
 #!/bin/bash
+ETCD_VERSION=v2.3.7
 if [ -d /lib/systemd ]; then 
-  if [ ! -x /usr/bin/etcdctl ] || [ ! -x /usr/bin/etcd ]; then 
-    echo "Build etcd" && \
+  if [ ! -x /usr/bin/etcdctl ] || [ ! -x /usr/bin/etcd ]; then
+    echo "Build etcd ${ETCD_VERSION}" && \
     if [ -d /opt/etcd ]; then rm -rf /opt/etcd;fi && \
     cd /opt && \
     git clone https://github.com/coreos/etcd && \
     cd /opt/etcd && \
+    git checkout tags/${ETCD_VERSION} && \
     echo "FROM golang:1.6-onbuild" > Dockerfile && \
     rm -f .dockerignore && \
     docker build -t coreos/etcd . && \
