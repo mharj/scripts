@@ -19,7 +19,7 @@ if [ -d /lib/systemd ]; then
     echo "etcd build failed";
     exit;
   fi
-  echo "Setup etcd" && \
+  echo "Setup etcd service" && \
   wget -q https://raw.githubusercontent.com/mharj/scripts/master/master/etcd.service -O /lib/systemd/system/etcd.service && \
   chmod 644 /lib/systemd/system/etcd.service && \
   systemctl daemon-reload && \
@@ -33,7 +33,7 @@ ETCD_LISTEN_CLIENT_URLS=
 ETCD_ADVERTISE_CLIENT_URLS=
 EOF
   fi
-  echo "done";  
+  echo "done";
   if [ ! -x /usr/bin/flanneld ]; then 
     echo "Build flannel" && \
     if [ -d /opt/flannel ]; then rm -rf /opt/flannel;fi && \
