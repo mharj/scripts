@@ -1,6 +1,6 @@
 #!/bin/bash
-if [ "$#" -ne 9 ];then
-  echo "[install|remove] [version]";
+if [ "$#" -ne 2 ];then
+  echo "Usage: $0 {install|remove} [version]"
   exit;
 fi
 ETCD_VERSION=$2
