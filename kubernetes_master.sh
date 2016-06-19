@@ -33,7 +33,9 @@ EOF
     docker rmi coreos/flannel golang:1.6-onbuild && \
     echo "done"
   fi
+  
   echo "flanneld systemd service" && \
+  source /etc/profile.d/etcd.sh && \
   wget -q https://raw.githubusercontent.com/mharj/scripts/master/master/flanneld.service -O /lib/systemd/system/flanneld.service && \
   chmod 644 /lib/systemd/system/flanneld.service && \
   systemctl daemon-reload && \
