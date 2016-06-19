@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "EXTRA:$1"
 echo "Build etcd ${ETCD_VERSION}" && \
 if [ -d /opt/etcd ]; then rm -rf /opt/etcd;fi && \
 cd /opt && \
