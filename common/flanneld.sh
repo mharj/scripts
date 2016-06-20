@@ -5,13 +5,18 @@ if [ "$#" -lt 1 ];then
 fi
 case "$1" in 
   remove)
-    if [ -f /lib/systemd/system/flanneld.service ]; then
+    if [ -f /lib/systemd/system/flanneld.service ]; then # stop, remove file and reload systemd
       systemctl stop flanneld
       systemctl disable flanneld
       rm -f /lib/systemd/system/flanneld.service
       systemctl daemon-reload
       systemctl reset-failed
-    fi  
+    fi
+    if [ -f /etc/init.d/flanneld ]; then # stop, clean init and file
+      service flanneld stop
+      update-rc.d flanneld remove
+      rm -f /etc/init.d/flanneld
+    fi
     rm -f /usr/bin/flanneld /usr/local/bin/mk-docker-opts.sh
     ;;
   install)
