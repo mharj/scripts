@@ -34,7 +34,7 @@ case "$2" in
           if [ -x /bin/systemctl ]; then
             wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/services/systemd/kube-apiserver.service -O /lib/systemd/system/kube-apiserver
           fi
-          if [ ! -f /etc/kubernetes/master/config.conf ]
+#          if [ ! -f /etc/kubernetes/master/config.conf ]
           ;;
       esac
     done
