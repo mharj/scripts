@@ -1,8 +1,9 @@
 #!/bin/bash
-export ETCD_VERSION=v2.3.7
+ETCD_VERSION=v2.3.7
+FLANNELD_VERSION=v0.5.5
 if [ -d /lib/systemd ]; then 
   if [ ! -x /usr/bin/etcdctl ] || [ ! -x /usr/bin/etcd ]; then
-    curl -s https://raw.githubusercontent.com/mharj/scripts/master/common/etcd.sh | bash ${ETCD_VERSION}
+    curl -s https://raw.githubusercontent.com/mharj/scripts/master/common/etcd.sh | bash -s install ${ETCD_VERSION}
   fi
   if [ ! -x /usr/bin/etcdctl ] || [ ! -x /usr/bin/etcd ]; then 
     echo "etcd build failed";
@@ -28,21 +29,22 @@ ETCD_ADVERTISE_CLIENT_URLS=
 EOF
   fi
   echo "done";
-  if [ ! -x /usr/bin/flanneld ]; then 
-    echo "Build flannel" && \
-    if [ -d /opt/flannel ]; then rm -rf /opt/flannel;fi && \
-    cd /opt && \
-    git clone https://github.com/coreos/flannel.git && \
-    cd /opt/flannel && \
-    echo "FROM golang:1.6-onbuild" > Dockerfile && \
-    mkdir /opt/flannel/bin && \
-    if [[ "$(docker images -q coreos/flannel 2>/dev/null)" != "" ]]; then docker rmi coreos/flannel;fi && \
-    docker build -t coreos/flannel . && \
-    docker run -i -v /opt/flannel/bin:/go/src/app/bin --rm coreos/flannel /bin/bash -c "cd /go/src/app && ./build" && \
-    install -o root -g root -m 0755 /opt/flannel/bin/flanneld /usr/bin/flanneld && \
-    echo "cleanup" && \
-    docker rmi coreos/flannel golang:1.6-onbuild && \
-    echo "done"
+  if [ ! -x /usr/bin/flanneld ]; then
+    curl -s https://raw.githubusercontent.com/mharj/scripts/master/common/flanneld.sh | bash -s install ${FLANNELD_VERSION}
+#    echo "Build flannel" && \
+#    if [ -d /opt/flannel ]; then rm -rf /opt/flannel;fi && \
+#    cd /opt && \
+#    git clone https://github.com/coreos/flannel.git && \
+#    cd /opt/flannel && \
+#    echo "FROM golang:1.6-onbuild" > Dockerfile && \
+#    mkdir /opt/flannel/bin && \
+#    if [[ "$(docker images -q coreos/flannel 2>/dev/null)" != "" ]]; then docker rmi coreos/flannel;fi && \
+#    docker build -t coreos/flannel . && \
+#    docker run -i -v /opt/flannel/bin:/go/src/app/bin --rm coreos/flannel /bin/bash -c "cd /go/src/app && ./build" && \
+#    install -o root -g root -m 0755 /opt/flannel/bin/flanneld /usr/bin/flanneld && \
+#    echo "cleanup" && \
+#    docker rmi coreos/flannel golang:1.6-onbuild && \
+#    echo "done"
   fi
   echo "flanneld systemd service"
   if [ ! -x /usr/local/bin/mk-docker-opts.sh ]; then
