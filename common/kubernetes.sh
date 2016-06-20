@@ -1,4 +1,5 @@
 #!/bin/bash
+BIN_PATH=/usr/local/bin
 K8S_VERSION=$(curl -sS https://storage.googleapis.com/kubernetes-release/release/stable.txt)
 case "$1" in 
   master)
@@ -7,7 +8,17 @@ case "$1" in
   node) 
     BINS="kubelet kubectl"
 esac
-for i in $BINS
-do
-  wget https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/$i --no-check-certificate -O /usr/local/bin/$i; 
-done
+case "$2" in 
+  install)
+    for i in $BINS
+    do
+      wget https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/$i --no-check-certificate -O ${BIN_PATH}/$i; 
+    done
+    ;;
+  remove)
+    for i in $BINS
+    do
+      rm -v ${BIN_PATH}/$i; 
+    done
+    ;;
+esac
