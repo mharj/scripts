@@ -9,6 +9,10 @@ case "$1" in
     rm -f /usr/bin/etcd /usr/bin/etcdctl
     if getent passwd etcd >/dev/null; then userdel etcd;fi
     if getent group etcd >/dev/null; then groupdel etcd;fi
+    if [ -f /lib/systemd/system/etcd.service ]; then
+      rm -f /lib/systemd/system/etcd.service
+      systemctl daemon-reload
+    fi
     ;;
   install)
     if [ "$#" -lt 2 ];then
