@@ -9,15 +9,6 @@ if [ -d /lib/systemd ]; then
     echo "etcd build failed";
     exit;
   fi
-  echo "etcd systemd service" && \
-  groupadd -fr etcd && \
-  id etcd >/dev/null 2>&1 && \
-  if [ "$?" != "0" ]; then useradd -r -d /var/lib/etcd -g etcd etcd;fi && \
-  mkdir -p /var/lib/etcd && \
-  chown -Rh etcd:etcd /var/lib/etcd && \
-  wget -q https://raw.githubusercontent.com/mharj/scripts/master/master/etcd.service -O /lib/systemd/system/etcd.service && \
-  chmod 644 /lib/systemd/system/etcd.service && \
-  systemctl daemon-reload && \
   if [ ! -f /etc/default/etcd ]; then 
     cat << EOF > /etc/default/etcd
 #ETCD_LISTEN_PEER_URLS default: \"http://localhost:2380,http://localhost:7001\"
@@ -28,7 +19,6 @@ ETCD_LISTEN_CLIENT_URLS=
 ETCD_ADVERTISE_CLIENT_URLS=
 EOF
   fi
-  echo "done";
   if [ ! -x /usr/bin/flanneld ]; then
     curl -s https://raw.githubusercontent.com/mharj/scripts/master/common/flanneld.sh | bash -s install ${FLANNELD_VERSION}
 #    echo "Build flannel" && \
