@@ -16,13 +16,18 @@ case "$1" in
     ;;
   remove)
     echo "*** remove etcd service"
-    if [ -f /lib/systemd/system/etcd.service ]; then
+    if [ -f /lib/systemd/system/etcd.service ]; then # stop, clean systemd and file
       systemctl stop etcd
       systemctl disable etcd
       rm -f /lib/systemd/system/etcd.service
       systemctl daemon-reload
       systemctl reset-failed
     fi
+    if [ -f /etc/init.d/etcd ]; then # stop, clean init and file
+      service etcd stop
+      update-rc.d etcd remove
+      rm -f /etc/init.d/etcd
+    fi    
     rm -f /usr/bin/etcd /usr/bin/etcdctl
     echo "*** remove etcd account"
     if getent passwd etcd >/dev/null; then userdel etcd;fi
