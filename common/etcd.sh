@@ -58,6 +58,8 @@ case "$1" in
       chmod 644 /lib/systemd/system/etcd.service && \
       systemctl daemon-reload
     fi
+    # install etcd initd 
+    # update-rc.d etcd defaults
     # base ENV settings file for etcd
     if [ ! -f /etc/default/etcd ]; then 
       cat << EOF > /etc/default/etcd
