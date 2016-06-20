@@ -3,7 +3,13 @@ if [ "$#" -lt 1 ];then
   echo "Usage: $0 {install|remove} [version]"
   exit;
 fi
-case "$1" in 
+case "$1" in
+  setup_account)
+    mkdir -p /var/lib/etcd
+    if ! getent group etcd >/dev/null; then groupadd -fr etcd;fi
+    if ! getent passwd etcd >/dev/null; then useradd -r -d /var/lib/etcd -g etcd etcd;fi
+    chown -Rh etcd:etcd /var/lib/etcd    
+    ;;
   remove)
     if [ -f /lib/systemd/system/etcd.service ]; then
       systemctl stop etcd
