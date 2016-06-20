@@ -27,6 +27,13 @@ case "$1" in
     install -o root -g root -m 0755 /opt/flannel/bin/flanneld /usr/bin/flanneld && \
     echo "cleanup" && \
     docker rmi coreos/flannel golang:1.6-onbuild && \
+    if [ -x /bin/systemctl ]; then # install etcd systemd service and set start etcd => flanneld => docker
+      wget -q https://raw.githubusercontent.com/mharj/scripts/master/master/flanneld.service -O /lib/systemd/system/flanneld.service && \
+      chmod 644 /lib/systemd/system/flanneld.service && \
+      mkdir -vp /etc/systemd/system/docker.service.d && \
+      wget -q https://raw.githubusercontent.com/mharj/scripts/master/flannel.conf -O /etc/systemd/system/docker.service.d/flannel.conf && \
+      systemctl daemon-reload
+    fi
     echo "done"
     ;;
 esac
