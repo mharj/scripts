@@ -5,13 +5,14 @@ if [ "$#" -lt 1 ];then
 fi
 case "$1" in
   setup_account)
-    echo "setup etcd account"
+    echo "*** setup etcd account"
     mkdir -p /var/lib/etcd
     if ! getent group etcd >/dev/null; then groupadd -fr etcd;fi
     if ! getent passwd etcd >/dev/null; then useradd -r -d /var/lib/etcd -g etcd etcd;fi
     chown -Rh etcd:etcd /var/lib/etcd    
     ;;
   remove)
+    echo "*** remove etcd service"
     if [ -f /lib/systemd/system/etcd.service ]; then
       systemctl stop etcd
       systemctl disable etcd
@@ -20,6 +21,7 @@ case "$1" in
       systemctl reset-failed
     fi
     rm -f /usr/bin/etcd /usr/bin/etcdctl
+    echo "*** remove etcd account"
     if getent passwd etcd >/dev/null; then userdel etcd;fi
     if getent group etcd >/dev/null; then groupdel etcd;fi
     ;;
@@ -29,7 +31,7 @@ case "$1" in
       exit;
     fi
     ETCD_VERSION=$2
-    echo "Build etcd ${ETCD_VERSION}" && \
+    echo "*** build etcd ${ETCD_VERSION}" && \
     if [ -d /opt/etcd ]; then rm -rf /opt/etcd;fi && \
     cd /opt && \
     git clone https://github.com/coreos/etcd && \
@@ -51,6 +53,6 @@ case "$1" in
       chmod 644 /lib/systemd/system/etcd.service && \
       systemctl daemon-reload
     fi
-    echo "done"
+    echo "*** done"
     ;;
 esac
