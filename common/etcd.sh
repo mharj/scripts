@@ -5,6 +5,7 @@ if [ "$#" -lt 1 ];then
 fi
 case "$1" in 
   remove)
+    if service etcd status >/dev/null; then service etcd stop; fi
     rm -f /usr/bin/etcd /usr/bin/etcdctl
     ;;
   install)
