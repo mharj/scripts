@@ -8,11 +8,17 @@ case "$1" in
     rm -f /usr/bin/flanneld
     ;;
   install)
-    echo "Build flannel" && \
+    if [ "$#" -lt 2 ];then
+      echo "Usage: $0 install version"
+      exit;
+    fi  
+    FLANNELD_VERSION=$2
+    echo "Build flannel ${FLANNELD_VERSION}" && \
     if [ -d /opt/flannel ]; then rm -rf /opt/flannel;fi && \
     cd /opt && \
     git clone https://github.com/coreos/flannel.git && \
     cd /opt/flannel && \
+    git checkout tags/${FLANNELD_VERSION} && \
     echo "FROM golang:1.6-onbuild" > Dockerfile && \
     mkdir /opt/flannel/bin && \
     if [[ "$(docker images -q coreos/flannel 2>/dev/null)" != "" ]]; then docker rmi coreos/flannel;fi && \
