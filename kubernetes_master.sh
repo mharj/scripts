@@ -9,16 +9,6 @@ if [ -d /lib/systemd ]; then
     echo "etcd build failed";
     exit;
   fi
-  if [ ! -f /etc/default/etcd ]; then 
-    cat << EOF > /etc/default/etcd
-#ETCD_LISTEN_PEER_URLS default: \"http://localhost:2380,http://localhost:7001\"
-ETCD_LISTEN_PEER_URLS=
-#ETCD_LISTEN_CLIENT_URLS default: \"http://localhost:2379,http://localhost:4001\"
-ETCD_LISTEN_CLIENT_URLS=
-#ETCD_ADVERTISE_CLIENT_URLS default: "http://localhost:2379,http://localhost:4001"
-ETCD_ADVERTISE_CLIENT_URLS=
-EOF
-  fi
   if [ ! -x /usr/bin/flanneld ]; then
     curl -s https://raw.githubusercontent.com/mharj/scripts/master/common/flanneld.sh | bash -s install ${FLANNELD_VERSION}
 #    echo "Build flannel" && \
