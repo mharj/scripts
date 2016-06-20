@@ -18,7 +18,7 @@ case "$1" in
     cd /opt && \
     git clone https://github.com/coreos/flannel.git && \
     cd /opt/flannel && \
-    git checkout tags/${FLANNELD_VERSION} && \
+#    git checkout tags/${FLANNELD_VERSION} && \
     echo "FROM golang:1.6-onbuild" > Dockerfile && \
     mkdir /opt/flannel/bin && \
     if [[ "$(docker images -q coreos/flannel 2>/dev/null)" != "" ]]; then docker rmi coreos/flannel;fi && \
