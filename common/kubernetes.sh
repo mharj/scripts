@@ -33,6 +33,7 @@ case "$2" in
     for i in $BINS
     do
       wget -nv https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/$i --no-check-certificate -O ${BIN_PATH}/$i;
+      chmod 755 ${BIN_PATH}/$i
       case $i in 
         kube-apiserver)
           [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/services/systemd/${i}.service -O /lib/systemd/system/${i}.service
