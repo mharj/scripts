@@ -5,14 +5,16 @@ if [ "$#" -lt 1 ];then
 fi
 case "$1" in 
   remove)
-    if service etcd status >/dev/null; then service etcd stop; fi
+    if [ -f /lib/systemd/system/etcd.service ]; then
+      systemctl stop etcd
+      systemctl disable etcd
+      rm -f /lib/systemd/system/etcd.service
+      systemctl daemon-reload
+      systemctl reset-failed
+    fi
     rm -f /usr/bin/etcd /usr/bin/etcdctl
     if getent passwd etcd >/dev/null; then userdel etcd;fi
     if getent group etcd >/dev/null; then groupdel etcd;fi
-    if [ -f /lib/systemd/system/etcd.service ]; then
-      rm -f /lib/systemd/system/etcd.service
-      systemctl daemon-reload
-    fi
     ;;
   install)
     if [ "$#" -lt 2 ];then
