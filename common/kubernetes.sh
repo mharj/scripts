@@ -12,7 +12,7 @@ case "$2" in
   install)
     for i in $BINS
     do
-      wget https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/$i --no-check-certificate -O ${BIN_PATH}/$i; 
+      wget -nv https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/$i --no-check-certificate -O ${BIN_PATH}/$i; 
     done
     ;;
   remove)
