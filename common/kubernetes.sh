@@ -31,7 +31,7 @@ case "$2" in
       wget -nv https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/$i --no-check-certificate -O ${BIN_PATH}/$i;
       case $i in 
         kube-apiserver)
-          [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/services/systemd/kube-apiserver.service -O /lib/systemd/system/kube-apiserver
+          [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/services/systemd/kube-apiserver.service -O /lib/systemd/system/${i}.service
           [ ! -f /etc/kubernetes/master/apiserver.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/etc/kubernetes/master/apiserver.conf -O /etc/kubernetes/master/apiserver.conf
           ;;
       esac
@@ -44,7 +44,12 @@ case "$2" in
     echo "${2} kubernetes ${1} (${K8S_VERSION})"
     for i in $BINS
     do
-      rm -v ${BIN_PATH}/$i; 
+      rm -v ${BIN_PATH}/$i;
+      case $i in 
+        kube-apiserver)
+          [ -x /bin/systemctl ] && [ -f /lib/systemd/system/${i}.service ] && rm -f /lib/systemd/system/${i}.service
+          ;;
+      esac
     done
     ;;
 esac
