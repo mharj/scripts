@@ -43,6 +43,9 @@ case "$2" in
           [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/services/systemd/${i}.service -O /lib/systemd/system/${i}.service
           [ ! -f /etc/kubernetes/master/controller-manager.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/etc/kubernetes/master/controller-manager.conf -O /etc/kubernetes/master/controller-manager.conf
           ;;
+        kube-scheduler)
+          [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/services/systemd/${i}.service -O /lib/systemd/system/${i}.service
+          [ ! -f /etc/kubernetes/master/scheduler.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/etc/kubernetes/master/scheduler.conf -O /etc/kubernetes/master/scheduler.conf
       esac
     done
     if [ -x /bin/systemctl ]; then
