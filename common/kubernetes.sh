@@ -3,10 +3,18 @@ BIN_PATH=/usr/local/bin
 K8S_VERSION=$(curl -sS https://storage.googleapis.com/kubernetes-release/release/stable.txt)
 case "$1" in 
   master)
+    mkdir -p /etc/kubernetes/master
     BINS="kube-apiserver kube-controller-manager kube-scheduler kubectl kube-proxy";
     ;;
   node) 
+    mkdir -p /etc/kubernetes/node
     BINS="kubelet kubectl"
+    ;;
+  multi)
+    mkdir -p /etc/kubernetes/master
+    mkdir -p /etc/kubernetes/node
+    BINS="kube-apiserver kube-controller-manager kube-scheduler kubectl kubelet kube-proxy";
+    ;;
 esac
 case "$2" in 
   install)
