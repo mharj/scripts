@@ -26,6 +26,8 @@ esac
 case "$2" in 
   install)
     echo "${2} kubernetes ${1} (${K8S_VERSION})"
+    if ! getent group kube >/dev/null; then groupadd -fr kube;fi && \
+    if ! getent passwd kube >/dev/null; then useradd -r -d /var/lib/kube -g kube kube;fi
     for i in $BINS
     do
       wget -nv https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/$i --no-check-certificate -O ${BIN_PATH}/$i;
