@@ -31,10 +31,8 @@ case "$2" in
       wget -nv https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/$i --no-check-certificate -O ${BIN_PATH}/$i;
       case $i in 
         kube-apiserver)
-          if [ -x /bin/systemctl ]; then
-            wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/services/systemd/kube-apiserver.service -O /lib/systemd/system/kube-apiserver
-          fi
-#          if [ ! -f /etc/kubernetes/master/config.conf ]
+          [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/services/systemd/kube-apiserver.service -O /lib/systemd/system/kube-apiserver
+          [ ! -f /etc/kubernetes/master/apiserver.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/etc/kubernetes/master/apiserver.conf -O /etc/kubernetes/master/apiserver.conf
           ;;
       esac
     done
