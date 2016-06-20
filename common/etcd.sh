@@ -53,7 +53,7 @@ case "$1" in
     rm -rf /opt/etcd 
     setup_account
     # install etcd systemd service
-    if [ -d /lib/systemd ]; then
+    if [ -x /bin/systemctl ]; then
       wget -q https://raw.githubusercontent.com/mharj/scripts/master/master/etcd.service -O /lib/systemd/system/etcd.service && \
       chmod 644 /lib/systemd/system/etcd.service && \
       systemctl daemon-reload
