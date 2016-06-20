@@ -12,7 +12,7 @@ case "$1" in
   node) 
     if [ "${2}" == "install" ]; then
       mkdir -p /etc/kubernetes/node
-      [ ! -f /etc/kubernetes/node/config.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/node/etc/kubernetes/master/config.conf -O /etc/kubernetes/node/config.conf
+      [ ! -f /etc/kubernetes/node/config.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/node/etc/kubernetes/node/config.conf -O /etc/kubernetes/node/config.conf
     fi
     BINS="kubelet kubectl"
     ;;
@@ -21,7 +21,7 @@ case "$1" in
       mkdir -p /etc/kubernetes/master
       mkdir -p /etc/kubernetes/node
       [ ! -f /etc/kubernetes/master/config.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/etc/kubernetes/master/config.conf -O /etc/kubernetes/master/config.conf
-      [ ! -f /etc/kubernetes/node/config.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/node/etc/kubernetes/master/config.conf -O /etc/kubernetes/node/config.conf
+      [ ! -f /etc/kubernetes/node/config.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/node/etc/kubernetes/node/config.conf -O /etc/kubernetes/node/config.conf
     fi
     BINS="kube-apiserver kube-controller-manager kube-scheduler kubectl kubelet kube-proxy";
     ;;
