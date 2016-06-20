@@ -10,12 +10,14 @@ case "$1" in
 esac
 case "$2" in 
   install)
+    echo "${2} kubernetes ${1} (${K8S_VERSION})"
     for i in $BINS
     do
       wget -nv https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/$i --no-check-certificate -O ${BIN_PATH}/$i; 
     done
     ;;
   remove)
+    echo "${2} kubernetes ${1} (${K8S_VERSION})"
     for i in $BINS
     do
       rm -v ${BIN_PATH}/$i; 
