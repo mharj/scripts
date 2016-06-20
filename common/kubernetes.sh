@@ -70,7 +70,7 @@ case "$2" in
         kube-scheduler)
           [ -x /bin/systemctl ] && [ -f /lib/systemd/system/${i}.service ] && rm -f /lib/systemd/system/${i}.service && service ${i} stop
           ;;
-        kube-node)
+        kube-proxy)
           [ -x /bin/systemctl ] && [ -f /lib/systemd/system/${i}.service ] && rm -f /lib/systemd/system/${i}.service && service ${i} stop
           ;;          
       esac
