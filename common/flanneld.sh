@@ -5,6 +5,13 @@ if [ "$#" -lt 1 ];then
 fi
 case "$1" in 
   remove)
+    if [ -f /lib/systemd/system/flanneld.service ]; then
+      systemctl stop flanneld
+      systemctl disable flanneld
+      rm -f /lib/systemd/system/flanneld.service
+      systemctl daemon-reload
+      systemctl reset-failed
+    fi  
     rm -f /usr/bin/flanneld
     ;;
   install)
