@@ -40,6 +40,10 @@ case "$1" in
       mkdir -vp /etc/systemd/system/docker.service.d && \
       wget -q https://raw.githubusercontent.com/mharj/scripts/master/flannel.conf -O /etc/systemd/system/docker.service.d/flannel.conf && \
       systemctl daemon-reload
+    elif [ -x /usr/sbin/update-rc.d ]; then # install etcd debian initd
+      wget -q https://raw.githubusercontent.com/mharj/scripts/master/common/flanneld.init -O /etc/init.d/flanneld
+      chmod 755 /etc/init.d/flanneld
+      update-rc.d flanneld defaults
     fi
     if [ ! -x /usr/local/bin/mk-docker-opts.sh ]; then
       wget -q https://raw.githubusercontent.com/coreos/flannel/master/dist/mk-docker-opts.sh -O /usr/local/bin/mk-docker-opts.sh
