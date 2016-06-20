@@ -52,14 +52,15 @@ case "$1" in
     cd /opt && \
     rm -rf /opt/etcd 
     setup_account
-    # install etcd systemd service
-    if [ -x /bin/systemctl ]; then
+    if [ -x /bin/systemctl ]; then # install etcd systemd service
       wget -q https://raw.githubusercontent.com/mharj/scripts/master/master/etcd.service -O /lib/systemd/system/etcd.service && \
       chmod 644 /lib/systemd/system/etcd.service && \
       systemctl daemon-reload
+    else # install etcd initd 
+      wget -q https://raw.githubusercontent.com/mharj/scripts/master/common/etcd.init -O /etc/init.d/etcd
+      chmod 755 /etc/init.d/etcd
+      update-rc.d etcd defaults
     fi
-    # install etcd initd 
-    # update-rc.d etcd defaults
     # base ENV settings file for etcd
     if [ ! -f /etc/default/etcd ]; then 
       cat << EOF > /etc/default/etcd
