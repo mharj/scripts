@@ -53,6 +53,16 @@ case "$1" in
       chmod 644 /lib/systemd/system/etcd.service && \
       systemctl daemon-reload
     fi
+    if [ ! -f /etc/default/etcd ]; then 
+      cat << EOF > /etc/default/etcd
+#ETCD_LISTEN_PEER_URLS default: \"http://localhost:2380,http://localhost:7001\"
+ETCD_LISTEN_PEER_URLS=
+#ETCD_LISTEN_CLIENT_URLS default: \"http://localhost:2379,http://localhost:4001\"
+ETCD_LISTEN_CLIENT_URLS=
+#ETCD_ADVERTISE_CLIENT_URLS default: "http://localhost:2379,http://localhost:4001"
+ETCD_ADVERTISE_CLIENT_URLS=
+EOF
+    fi    
     echo "*** done"
     ;;
 esac
