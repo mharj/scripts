@@ -12,7 +12,7 @@ case "$1" in
       systemctl daemon-reload
       systemctl reset-failed
     fi  
-    rm -f /usr/bin/flanneld
+    rm -f /usr/bin/flanneld /usr/local/bin/mk-docker-opts.sh
     ;;
   install)
     if [ "$#" -lt 2 ];then
@@ -40,6 +40,10 @@ case "$1" in
       mkdir -vp /etc/systemd/system/docker.service.d && \
       wget -q https://raw.githubusercontent.com/mharj/scripts/master/flannel.conf -O /etc/systemd/system/docker.service.d/flannel.conf && \
       systemctl daemon-reload
+    fi
+    if [ ! -x /usr/local/bin/mk-docker-opts.sh ]; then
+      wget -q https://raw.githubusercontent.com/coreos/flannel/master/dist/mk-docker-opts.sh -O /usr/local/bin/mk-docker-opts.sh
+      chmod 755 /usr/local/bin/mk-docker-opts.sh
     fi
     echo "done"
     ;;
