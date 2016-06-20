@@ -49,6 +49,7 @@ case "$2" in
         kube-proxy)
           [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/node/services/systemd/${i}.service -O /lib/systemd/system/${i}.service
           [ ! -f /etc/kubernetes/node/kube-proxy.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/node/etc/kubernetes/node/kube-proxy.conf -O /etc/kubernetes/node/kube-proxy.conf
+          ;;
       esac
     done
     if [ -x /bin/systemctl ]; then
