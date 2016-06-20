@@ -12,6 +12,7 @@ case "$1" in
   node) 
     if [ "${2}" == "install" ]; then
       mkdir -p /etc/kubernetes/node
+      [ ! -f /etc/kubernetes/node/config.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/node/etc/kubernetes/master/config.conf -O /etc/kubernetes/node/config.conf
     fi
     BINS="kubelet kubectl"
     ;;
@@ -19,6 +20,8 @@ case "$1" in
     if [ "${2}" == "install" ]; then
       mkdir -p /etc/kubernetes/master
       mkdir -p /etc/kubernetes/node
+      [ ! -f /etc/kubernetes/master/config.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/etc/kubernetes/master/config.conf -O /etc/kubernetes/master/config.conf
+      [ ! -f /etc/kubernetes/node/config.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/node/etc/kubernetes/master/config.conf -O /etc/kubernetes/node/config.conf
     fi
     BINS="kube-apiserver kube-controller-manager kube-scheduler kubectl kubelet kube-proxy";
     ;;
@@ -51,6 +54,10 @@ case "$2" in
           [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/node/services/systemd/${i}.service -O /lib/systemd/system/${i}.service
           [ ! -f /etc/kubernetes/node/kube-proxy.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/node/etc/kubernetes/node/kube-proxy.conf -O /etc/kubernetes/node/kube-proxy.conf
           ;;
+        kubelet)
+          [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/node/services/systemd/${i}.service -O /lib/systemd/system/${i}.service
+          [ ! -f /etc/kubernetes/node/kubelet.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/node/etc/kubernetes/node/kubelet.conf -O /etc/kubernetes/node/kubelet.conf
+          ;;          
       esac
     done
     if [ -x /bin/systemctl ]; then
@@ -74,7 +81,10 @@ case "$2" in
           ;;
         kube-proxy)
           [ -x /bin/systemctl ] && [ -f /lib/systemd/system/${i}.service ] && rm -f /lib/systemd/system/${i}.service && service ${i} stop
-          ;;          
+          ;;       
+        kubelet)
+          [ -x /bin/systemctl ] && [ -f /lib/systemd/system/${i}.service ] && rm -f /lib/systemd/system/${i}.service && service ${i} stop
+          ;;
       esac
     done
     ;;
