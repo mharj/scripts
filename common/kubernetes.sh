@@ -1,5 +1,5 @@
 #!/bin/bash
-BIN_PATH=/usr/local/bin
+BIN_PATH=/usr/bin
 K8S_VERSION=$(curl -sS https://storage.googleapis.com/kubernetes-release/release/stable.txt)
 case "$1" in 
   master)
