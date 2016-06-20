@@ -3,7 +3,6 @@ if [ "$#" -lt 1 ];then
   echo "Usage: $0 {install|remove} [version]"
   exit;
 fi
-ETCD_VERSION=$2
 case "$1" in 
   remove)
     rm -f /usr/bin/etcd /usr/bin/etcdctl
@@ -11,8 +10,9 @@ case "$1" in
   install)
     if [ "$#" -lt 2 ];then
       echo "Usage: $0 install version"
-        exit;
+      exit;
     fi
+    ETCD_VERSION=$2
     echo "Build etcd ${ETCD_VERSION}" && \
     if [ -d /opt/etcd ]; then rm -rf /opt/etcd;fi && \
     cd /opt && \
