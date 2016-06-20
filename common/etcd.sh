@@ -31,6 +31,7 @@ case "$1" in
       exit;
     fi
     ETCD_VERSION=$2
+    # build etcd with docker image and container
     echo "*** build etcd ${ETCD_VERSION}" && \
     if [ -d /opt/etcd ]; then rm -rf /opt/etcd;fi && \
     cd /opt && \
@@ -48,11 +49,13 @@ case "$1" in
     cd /opt && \
     rm -rf /opt/etcd 
     setup_account
+    # install etcd systemd service
     if [ -d /lib/systemd ]; then
       wget -q https://raw.githubusercontent.com/mharj/scripts/master/master/etcd.service -O /lib/systemd/system/etcd.service && \
       chmod 644 /lib/systemd/system/etcd.service && \
       systemctl daemon-reload
     fi
+    # base ENV settings file for etcd
     if [ ! -f /etc/default/etcd ]; then 
       cat << EOF > /etc/default/etcd
 #ETCD_LISTEN_PEER_URLS default: \"http://localhost:2380,http://localhost:7001\"
