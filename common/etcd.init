@@ -10,8 +10,6 @@
 ### END INIT INFO
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
-export ETCD_DATA_DIR=/var/lib/etcd
-
 
 . /lib/lsb/init-functions
 
