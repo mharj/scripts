@@ -38,6 +38,11 @@ case "$1" in
     docker rmi coreos/etcd && \
     cd /opt && \
     rm -rf /opt/etcd && \
+    if [ -d /lib/systemd ]; then
+      wget -q https://raw.githubusercontent.com/mharj/scripts/master/master/etcd.service -O /lib/systemd/system/etcd.service && \
+      chmod 644 /lib/systemd/system/etcd.service && \
+      systemctl daemon-reload
+    fi
     echo "done"
     ;;
 esac
