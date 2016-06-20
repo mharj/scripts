@@ -13,7 +13,7 @@ case "$1" in
       exit;
     fi  
     FLANNELD_VERSION=$2
-    echo "Build flannel ${FLANNELD_VERSION}" && \
+    echo "Build flannel ${FLANNELD_VERSION} (ignored)" && \
     if [ -d /opt/flannel ]; then rm -rf /opt/flannel;fi && \
     cd /opt && \
     git clone https://github.com/coreos/flannel.git && \
