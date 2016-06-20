@@ -7,6 +7,8 @@ case "$1" in
   remove)
     if service etcd status >/dev/null; then service etcd stop; fi
     rm -f /usr/bin/etcd /usr/bin/etcdctl
+    if getent group etcd >/dev/null; then groupdel etcd;fi
+    if getent passwd etcd >/dev/null; then userdel etcd;fi
     ;;
   install)
     if [ "$#" -lt 2 ];then
