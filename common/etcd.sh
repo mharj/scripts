@@ -56,13 +56,13 @@ case "$1" in
       wget -q https://raw.githubusercontent.com/mharj/scripts/master/master/etcd.service -O /lib/systemd/system/etcd.service && \
       chmod 644 /lib/systemd/system/etcd.service && \
       systemctl daemon-reload
-    else # install etcd initd 
+    elif [ -x /usr/sbin/update-rc.d ]; then # install etcd debian initd
       wget -q https://raw.githubusercontent.com/mharj/scripts/master/common/etcd.init -O /etc/init.d/etcd
       chmod 755 /etc/init.d/etcd
       update-rc.d etcd defaults
     fi
     # base ENV settings file for etcd
-    if [ ! -f /etc/default/etcd ]; then 
+    if [ -d /etc/default ] && [ ! -f /etc/default/etcd ]; then 
       cat << EOF > /etc/default/etcd
 #ETCD_LISTEN_PEER_URLS default: \"http://localhost:2380,http://localhost:7001\"
 ETCD_LISTEN_PEER_URLS=
