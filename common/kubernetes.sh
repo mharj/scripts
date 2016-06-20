@@ -63,7 +63,10 @@ case "$2" in
           ;;
         kube-controller-manager)
           [ -x /bin/systemctl ] && [ -f /lib/systemd/system/${i}.service ] && rm -f /lib/systemd/system/${i}.service && service ${i} stop
-          ;;          
+          ;;
+        kube-scheduler)
+          [ -x /bin/systemctl ] && [ -f /lib/systemd/system/${i}.service ] && rm -f /lib/systemd/system/${i}.service && service ${i} stop
+          ;;
       esac
     done
     ;;
