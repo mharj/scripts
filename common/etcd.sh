@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ "$#" -ne 2 ];then
+if [ "$#" -lt 1 ];then
   echo "Usage: $0 {install|remove} [version]"
   exit;
 fi
@@ -9,6 +9,10 @@ case "$1" in
     rm -f /usr/bin/etcd /usr/bin/etcdctl
     ;;
   install)
+    if [ "$#" -lt 2 ];then
+      echo "Usage: $0 install version"
+        exit;
+    fi
     echo "Build etcd ${ETCD_VERSION}" && \
     if [ -d /opt/etcd ]; then rm -rf /opt/etcd;fi && \
     cd /opt && \
