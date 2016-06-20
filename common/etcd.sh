@@ -5,6 +5,7 @@ if [ "$#" -lt 1 ];then
 fi
 case "$1" in
   setup_account)
+    echo "setup etcd account"
     mkdir -p /var/lib/etcd
     if ! getent group etcd >/dev/null; then groupadd -fr etcd;fi
     if ! getent passwd etcd >/dev/null; then useradd -r -d /var/lib/etcd -g etcd etcd;fi
