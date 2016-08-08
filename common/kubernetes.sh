@@ -39,23 +39,23 @@ case "$2" in
       chmod 755 ${BIN_PATH}/$i
       case $i in 
         kube-apiserver)
-          [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/services/systemd/${i}.service -O /lib/systemd/system/${i}.service
+          [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kubernetes/contrib/master/init/systemd/kube-apiserver.service -O /lib/systemd/system/${i}.service
           [ ! -f /etc/kubernetes/master/apiserver.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/etc/kubernetes/master/apiserver.conf -O /etc/kubernetes/master/apiserver.conf
           ;;
         kube-controller-manager)
-          [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/services/systemd/${i}.service -O /lib/systemd/system/${i}.service
+          [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kubernetes/contrib/master/init/systemd/${i}.service -O /lib/systemd/system/${i}.service
           [ ! -f /etc/kubernetes/master/controller-manager.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/etc/kubernetes/master/controller-manager.conf -O /etc/kubernetes/master/controller-manager.conf
           ;;
         kube-scheduler)
-          [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/services/systemd/${i}.service -O /lib/systemd/system/${i}.service
+          [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kubernetes/contrib/master/init/systemd/${i}.service -O /lib/systemd/system/${i}.service
           [ ! -f /etc/kubernetes/master/scheduler.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/master/etc/kubernetes/master/scheduler.conf -O /etc/kubernetes/master/scheduler.conf
           ;;
         kube-proxy)
-          [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/node/services/systemd/${i}.service -O /lib/systemd/system/${i}.service
+          [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kubernetes/contrib/master/init/systemd/${i}.service -O /lib/systemd/system/${i}.service
           [ ! -f /etc/kubernetes/node/kube-proxy.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/node/etc/kubernetes/node/kube-proxy.conf -O /etc/kubernetes/node/kube-proxy.conf
           ;;
         kubelet)
-          [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/node/services/systemd/${i}.service -O /lib/systemd/system/${i}.service
+          [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kubernetes/contrib/master/init/systemd/${i}.service -O /lib/systemd/system/${i}.service
           [ ! -f /etc/kubernetes/node/kubelet.conf ] && wget -nv https://raw.githubusercontent.com/kismatic/kubernetes-distro-packages/master/kubernetes/node/etc/kubernetes/node/kubelet.conf -O /etc/kubernetes/node/kubelet.conf
           ;;          
       esac
