@@ -35,8 +35,10 @@ case "$2" in
     chown -Rh kube:kube /var/run/kubernetes
     for i in $BINS
     do
-      wget -nv https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/$i --no-check-certificate -O ${BIN_PATH}/$i;
-      chmod 755 ${BIN_PATH}/$i
+      if [ ! -x ${BIN_PATH}/$i ] || [ $(${BIN_PATH}/$i --version) != "Kubernetes ${K8S_VERSION}"]; then
+        wget -nv https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/$i --no-check-certificate -O ${BIN_PATH}/$i;
+        chmod 755 ${BIN_PATH}/$i
+      fi
       case $i in 
         kube-apiserver)
           [ -x /bin/systemctl ] && wget -nv https://raw.githubusercontent.com/kubernetes/contrib/master/init/systemd/kube-apiserver.service -O /lib/systemd/system/${i}.service
