@@ -35,7 +35,7 @@ case "$2" in
     chown -Rh kube:kube /var/run/kubernetes
     for i in $BINS
     do
-      if [ ! -x ${BIN_PATH}/$i ] || [ "$(${BIN_PATH}/$i --version)" != "Kubernetes ${K8S_VERSION}" ]; then
+      if [ ! -x ${BIN_PATH}/$i ] || [ "$(${BIN_PATH}/$i --version 2>/dev/null)" != "Kubernetes ${K8S_VERSION}" ]; then
         wget -nv https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/$i --no-check-certificate -O ${BIN_PATH}/$i;
         chmod 755 ${BIN_PATH}/$i
       fi
