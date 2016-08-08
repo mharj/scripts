@@ -83,7 +83,7 @@ case "$2" in
           [ -x /bin/systemctl ] && [ -f /lib/systemd/system/${i}.service ] && rm -f /lib/systemd/system/${i}.service && service ${i} stop
           ;;       
         kubelet)
-          [ -x /bin/systemctl ] && [ -f /lib/systemd/system/${i}.service ] && rm -f /lib/systemd/system/${i}.service && service ${i} stop
+          [ -x /bin/kubelet ] && [ -f /lib/systemd/system/${i}.service ] && rm -f /lib/systemd/system/${i}.service && service ${i} stop
           ;;
       esac
     done
